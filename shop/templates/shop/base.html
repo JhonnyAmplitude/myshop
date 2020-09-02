@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}Shop{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <div id="header">
+            <a href="/" class="navbar-brand">Интернет-магазин</a>
+        </div>
+        <div id="subheader">
+            <div class="cart">
+                {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                Ваша корзина:
+                <a href="{% url "cart:cart_detail" %}">
+                {{ total_items }} item{{ total_items|pluralize }},
+                ₽{{ cart.get_total_price }}
+                </a>
+                {% else %}
+                Ваша корзина пуста.
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>
+
